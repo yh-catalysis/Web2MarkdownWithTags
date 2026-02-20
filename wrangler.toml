@@ -1,0 +1,15 @@
+name = "web2markdown-worker"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# "true" to allow image conversion (uses Workers AI Neurons = paid).
+# "false" to restrict to free conversions only (PDF, HTML, Office, etc.).
+ALLOW_IMAGE_CONVERSION = "false"
+
+[ai]
+binding = "AI"
+
+[browser]
+binding = "BROWSER"
