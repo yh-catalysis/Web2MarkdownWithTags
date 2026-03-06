@@ -37,8 +37,8 @@ A Cloudflare Worker that converts web pages and documents to Markdown, using [Wo
 
 ```bash
 npm install
-npx wrangler secret put AUTH_TOKEN   # Enter your secret token
-npm run deploy
+npm run deploy                                # Deploy the Worker first
+npx wrangler secret put AUTH_TOKEN            # Then set the secret token
 ```
 
 Note the deployed URL (e.g. `https://web2markdown-worker.<subdomain>.workers.dev`).
@@ -144,8 +144,8 @@ Cloudflare Worker 上で動作し、Web ページやドキュメントを Markdo
 
 ```bash
 npm install
-npx wrangler secret put AUTH_TOKEN   # 任意のトークン文字列を入力
-npm run deploy
+npm run deploy                                # まず Worker をデプロイ
+npx wrangler secret put AUTH_TOKEN            # その後シークレットを設定
 ```
 
 デプロイ後に表示される URL (例: `https://web2markdown-worker.<subdomain>.workers.dev`) を控えておく。
