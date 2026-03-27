@@ -13,7 +13,7 @@
 Fetch a static web page and convert its HTML to Markdown using Workers AI `toMarkdown`.
 
 | Parameter | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | URL to convert |
 | `headers` | `Record<string, string>` | No | Custom HTTP headers to include in the request |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
@@ -23,7 +23,7 @@ Fetch a static web page and convert its HTML to Markdown using Workers AI `toMar
 Convert a JavaScript-rendered page (SPA, etc.) to Markdown. Launches a headless browser (Puppeteer), executes JS, then converts the resulting DOM with `toMarkdown`.
 
 | Parameter | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | URL to convert |
 | `waitForSelector` | string | No | CSS selector to wait for before capturing |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
@@ -35,7 +35,7 @@ Convert a JavaScript-rendered page (SPA, etc.) to Markdown. Launches a headless 
 Convert documents (PDF, Office, images, etc.) to Markdown. Downloads the file and converts it with Workers AI `toMarkdown`.
 
 | Parameter | Type | Required | Description |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | File URL |
 | `filename` | string | No | Override filename (used for MIME type detection) |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
@@ -45,7 +45,7 @@ Convert documents (PDF, Office, images, etc.) to Markdown. Downloads the file an
 Formats supported by `convert_to_markdown`:
 
 | Format | Extensions | Cost |
-|---|---|---|
+| --- | --- | --- |
 | PDF | `.pdf` | Free |
 | HTML | `.html`, `.htm` | Free |
 | Microsoft Office | `.docx`, `.xlsx`, `.xlsm`, `.xlsb`, `.xls`, `.et` | Free |
@@ -59,7 +59,7 @@ Formats supported by `convert_to_markdown`:
 
 ### Project Structure
 
-```
+```text
 .
 ├── src/
 │   ├── index.ts                 # Hono app (routing / middleware)
@@ -110,7 +110,7 @@ npm run tail
 静的な Web ページを Markdown に変換する。HTML を取得し、Workers AI `toMarkdown` で変換する。
 
 | パラメータ | 型 | 必須 | 説明 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | 変換対象の URL |
 | `headers` | `Record<string, string>` | No | HTTP リクエストに付与するカスタムヘッダー |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
@@ -120,7 +120,7 @@ npm run tail
 JavaScript で動的にレンダリングされるページ (SPA 等) を Markdown に変換する。ヘッドレスブラウザ (Puppeteer) を起動し、JS 実行後の DOM を `toMarkdown` で変換する。
 
 | パラメータ | 型 | 必須 | 説明 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | 変換対象の URL |
 | `waitForSelector` | string | No | レンダリング完了を待つ CSS セレクタ |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
@@ -132,7 +132,7 @@ JavaScript で動的にレンダリングされるページ (SPA 等) を Markdo
 PDF・画像・Office 文書などを Markdown に変換する。ファイルをダウンロードし、Workers AI `toMarkdown` で変換する。
 
 | パラメータ | 型 | 必須 | 説明 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `url` | string | Yes | ファイルの URL |
 | `filename` | string | No | ファイル名の上書き (MIME 判定に使用) |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
@@ -142,7 +142,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 `convert_to_markdown` で変換可能な形式:
 
 | 形式 | 拡張子 | 料金 |
-|---|---|---|
+| --- | --- | --- |
 | PDF | `.pdf` | 無料 |
 | HTML | `.html`, `.htm` | 無料 |
 | Microsoft Office | `.docx`, `.xlsx`, `.xlsm`, `.xlsb`, `.xls`, `.et` | 無料 |
@@ -156,7 +156,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 
 ### プロジェクト構成
 
-```
+```text
 .
 ├── src/
 │   ├── index.ts                 # Hono アプリ (ルーティング / ミドルウェア)

@@ -2,7 +2,7 @@ import type { Env } from "../lib/env.js";
 import { USER_AGENT, FETCH_TIMEOUT } from "../lib/constants.js";
 import { validateUrl } from "../lib/validate-url.js";
 import { readBodyWithLimit } from "../lib/fetch-utils.js";
-import { convertViaAI, applyTruncation } from "./shared.js";
+import { convertViaAI, applyTruncation, enrichWithTags } from "./shared.js";
 import type { FetchMarkdownInput, ServiceResult } from "./types.js";
 
 export async function fetchMarkdown(
@@ -39,10 +39,16 @@ export async function fetchMarkdown(
       hostname = "page";
     }
 
-    const result = await convertViaAI(env, `${hostname}.html`, htmlBytes, "text/html");
+    const result = await convertViaAI(
+      env,
+      `${hostname}.html`,
+      htmlBytes,
+      "text/html",
+    );
     if (!result.ok) return result;
 
-    return applyTruncation(result, input.maxLength);
+    const enriched = await enrichWithTags(env, result);
+    return applyTruncation(enriched, input.maxLength);
   } catch (error) {
     return {
       ok: false,
