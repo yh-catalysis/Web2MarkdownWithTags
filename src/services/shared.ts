@@ -1,5 +1,15 @@
 import type { Env } from "../lib/env.js";
 import type { ServiceResult } from "./types.js";
+import { generateTags, insertTagsIntoFrontmatter } from "./generate-tags.js";
+
+export async function enrichWithTags(
+  env: Env,
+  result: ServiceResult & { ok: true },
+): Promise<ServiceResult & { ok: true }> {
+  const tags = await generateTags(env, result.markdown);
+  const enriched = insertTagsIntoFrontmatter(result.markdown, tags);
+  return { ...result, markdown: enriched, originalLength: enriched.length };
+}
 
 export async function convertViaAI(
   env: Env,
@@ -23,7 +33,12 @@ export async function convertViaAI(
   }
 
   const markdown = result.data ?? "";
-  return { ok: true, markdown, truncated: false, originalLength: markdown.length };
+  return {
+    ok: true,
+    markdown,
+    truncated: false,
+    originalLength: markdown.length,
+  };
 }
 
 export function applyTruncation(
