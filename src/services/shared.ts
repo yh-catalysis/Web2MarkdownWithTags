@@ -1,5 +1,5 @@
 import type { Env } from "../lib/env.js";
-import type { ServiceResult } from "./types.js";
+import type { HtmlConversionOptions, ServiceResult } from "./types.js";
 import { generateTags, insertTagsIntoFrontmatter } from "./generate-tags.js";
 
 export async function enrichWithTags(
@@ -11,14 +11,36 @@ export async function enrichWithTags(
   return { ...result, markdown: enriched, originalLength: enriched.length };
 }
 
+function buildHtmlOptions(
+  options?: HtmlConversionOptions,
+): HtmlConversionOptions | undefined {
+  if (!options) return undefined;
+  const entries = Object.entries(options).filter(
+    ([, value]) => value !== undefined && value !== "",
+  );
+  return entries.length > 0
+    ? (Object.fromEntries(entries) as HtmlConversionOptions)
+    : undefined;
+}
+
 export async function convertViaAI(
   env: Env,
   fileName: string,
   data: ArrayBuffer | string,
   mimeType: string,
+  htmlOptions?: HtmlConversionOptions,
 ): Promise<ServiceResult> {
   const blob = new Blob([data], { type: mimeType });
-  const results = await env.AI.toMarkdown([{ name: fileName, blob }]);
+  const html = buildHtmlOptions(htmlOptions);
+
+  // `html` is assignable to ConversionOptions["html"]: the shipped
+  // @cloudflare/workers-types declares `hostname` but not yet `cssSelector`,
+  // and extra properties on a non-fresh value are allowed.
+  const results = html
+    ? await env.AI.toMarkdown([{ name: fileName, blob }], {
+        conversionOptions: { html },
+      })
+    : await env.AI.toMarkdown([{ name: fileName, blob }]);
 
   if (results.length === 0) {
     return { ok: false, error: "Cloudflare toMarkdown returned no results" };

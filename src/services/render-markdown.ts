@@ -1,6 +1,7 @@
 import type { Env } from "../lib/env.js";
 import { FETCH_TIMEOUT, WAIT_FOR_SELECTOR_TIMEOUT } from "../lib/constants.js";
 import { validateUrl } from "../lib/validate-url.js";
+import { safeHostname } from "../lib/url-utils.js";
 import { convertViaAI, applyTruncation, enrichWithTags } from "./shared.js";
 import type { RenderMarkdownInput, ServiceResult } from "./types.js";
 import puppeteer from "@cloudflare/puppeteer";
@@ -34,6 +35,7 @@ export async function renderMarkdown(
         "rendered.html",
         html,
         "text/html",
+        { hostname: safeHostname(input.url), cssSelector: input.cssSelector },
       );
       if (!result.ok) return result;
 

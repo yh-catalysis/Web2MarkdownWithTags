@@ -26,12 +26,14 @@ const fetchSchema = z.object({
   url: z.string().url(),
   headers: z.record(z.string()).optional(),
   maxLength: z.number().int().min(0).optional(),
+  cssSelector: z.string().optional(),
 });
 
 const renderSchema = z.object({
   url: z.string().url(),
   waitForSelector: z.string().optional(),
   maxLength: z.number().int().min(0).optional(),
+  cssSelector: z.string().optional(),
 });
 
 const convertSchema = z.object({
