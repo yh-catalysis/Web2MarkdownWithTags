@@ -1,0 +1,48 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "timezone": "Asia/Tokyo",
+  "schedule": [
+    "on saturday"
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "security"
+    ],
+    "schedule": [
+      "at any time"
+    ]
+  },
+  "packageRules": [
+    {
+      "groupName": "github-actions",
+      "matchManagers": [
+        "github-actions"
+      ]
+    },
+    {
+      "groupName": "python dependencies",
+      "matchManagers": [
+        "pep621",
+        "uv"
+      ],
+      "rangeStrategy": "widen"
+    },
+    {
+      "groupName": "node dependencies",
+      "matchManagers": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": ".net dependencies",
+      "matchManagers": [
+        "nuget"
+      ]
+    }
+  ]
+}
