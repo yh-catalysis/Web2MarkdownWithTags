@@ -96,8 +96,8 @@ curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
 
 | Endpoint | Required | Optional |
 | --- | --- | --- |
-| `/api/fetch` | `url` | `headers`, `maxLength` |
-| `/api/render` | `url` | `waitForSelector`, `maxLength` |
+| `/api/fetch` | `url` | `headers`, `maxLength`, `cssSelector` |
+| `/api/render` | `url` | `waitForSelector`, `maxLength`, `cssSelector` |
 | `/api/convert` | `url` | `filename`, `maxLength` |
 
 #### Response
@@ -205,8 +205,8 @@ curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
 
 | エンドポイント | 必須 | オプション |
 | --- | --- | --- |
-| `/api/fetch` | `url` | `headers`, `maxLength` |
-| `/api/render` | `url` | `waitForSelector`, `maxLength` |
+| `/api/fetch` | `url` | `headers`, `maxLength`, `cssSelector` |
+| `/api/render` | `url` | `waitForSelector`, `maxLength`, `cssSelector` |
 | `/api/convert` | `url` | `filename`, `maxLength` |
 
 #### レスポンス

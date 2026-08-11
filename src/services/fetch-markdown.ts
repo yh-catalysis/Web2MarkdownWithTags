@@ -1,6 +1,7 @@
 import type { Env } from "../lib/env.js";
 import { USER_AGENT, FETCH_TIMEOUT } from "../lib/constants.js";
 import { validateUrl } from "../lib/validate-url.js";
+import { safeHostname } from "../lib/url-utils.js";
 import { readBodyWithLimit } from "../lib/fetch-utils.js";
 import { convertViaAI, applyTruncation, enrichWithTags } from "./shared.js";
 import type { FetchMarkdownInput, ServiceResult } from "./types.js";
@@ -32,18 +33,14 @@ export async function fetchMarkdown(
 
     const htmlBytes = await readBodyWithLimit(pageResponse);
 
-    let hostname: string;
-    try {
-      hostname = new URL(input.url).hostname;
-    } catch {
-      hostname = "page";
-    }
+    const hostname = safeHostname(input.url);
 
     const result = await convertViaAI(
       env,
-      `${hostname}.html`,
+      `${hostname ?? "page"}.html`,
       htmlBytes,
       "text/html",
+      { hostname, cssSelector: input.cssSelector },
     );
     if (!result.ok) return result;
 

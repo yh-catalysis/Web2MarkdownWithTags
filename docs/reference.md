@@ -17,6 +17,7 @@ Fetch a static web page and convert its HTML to Markdown using Workers AI `toMar
 | `url` | string | Yes | URL to convert |
 | `headers` | `Record<string, string>` | No | Custom HTTP headers to include in the request |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
+| `cssSelector` | string | No | CSS selector to keep only matching elements (e.g. `article`). When omitted, only `<header>`, `<footer>` and `<head>` are stripped |
 
 #### `render_markdown`
 
@@ -27,6 +28,7 @@ Convert a JavaScript-rendered page (SPA, etc.) to Markdown. Launches a headless 
 | `url` | string | Yes | URL to convert |
 | `waitForSelector` | string | No | CSS selector to wait for before capturing |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
+| `cssSelector` | string | No | CSS selector to keep only matching elements (e.g. `article`). When omitted, only `<header>`, `<footer>` and `<head>` are stripped |
 
 > Browser Rendering limits: Free 6 req/min, 10 min/day / Paid 180 req/min, 10 hrs/month
 
@@ -77,6 +79,7 @@ Formats supported by `convert_to_markdown`:
 │       ├── env.ts               # Env type / timingSafeEqual
 │       ├── validate-url.ts      # SSRF protection URL validation
 │       ├── image-gate.ts        # Image conversion gate
+│       ├── url-utils.ts         # safeHostname helper
 │       └── fetch-utils.ts       # Size-limited fetch utility
 ├── docs/
 │   └── reference.md             # This file
@@ -114,6 +117,7 @@ npm run tail
 | `url` | string | Yes | 変換対象の URL |
 | `headers` | `Record<string, string>` | No | HTTP リクエストに付与するカスタムヘッダー |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
+| `cssSelector` | string | No | 本文だけを抽出する CSS セレクタ (例: `article`)。省略時は `<header>`・`<footer>`・`<head>` のみ除去される |
 
 #### `render_markdown`
 
@@ -124,6 +128,7 @@ JavaScript で動的にレンダリングされるページ (SPA 等) を Markdo
 | `url` | string | Yes | 変換対象の URL |
 | `waitForSelector` | string | No | レンダリング完了を待つ CSS セレクタ |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
+| `cssSelector` | string | No | 本文だけを抽出する CSS セレクタ (例: `article`)。省略時は `<header>`・`<footer>`・`<head>` のみ除去される |
 
 > Browser Rendering の制限: Free 6 req/min, 10 min/day / Paid 180 req/min, 10 hrs/month
 
@@ -174,6 +179,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 │       ├── env.ts               # Env 型 / timingSafeEqual
 │       ├── validate-url.ts      # SSRF 対策 URL バリデーション
 │       ├── image-gate.ts        # 画像変換ゲート
+│       ├── url-utils.ts         # safeHostname ヘルパー
 │       └── fetch-utils.ts       # サイズ制限付き fetch ユーティリティ
 ├── docs/
 │   └── reference.md             # 本ファイル
