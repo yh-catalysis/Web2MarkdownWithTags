@@ -2,12 +2,14 @@
     "name": "web2markdown-with-tags",
     "version": "1.0.0",
     "private": true,
+    "packageManager": "pnpm@11.21.0",
     "scripts": {
         "dev": "wrangler dev",
         "deploy": "wrangler deploy",
         "tail": "wrangler tail",
         "test": "vitest run",
-        "test:watch": "vitest"
+        "test:watch": "vitest",
+        "lint": "tsc --noEmit"
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20250214.0",
