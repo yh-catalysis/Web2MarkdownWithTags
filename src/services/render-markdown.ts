@@ -29,11 +29,19 @@ export async function renderMarkdown(
       const html = await page.content();
       await browser.close();
 
+      let hostname: string;
+      try {
+        hostname = new URL(input.url).hostname;
+      } catch {
+        hostname = "rendered";
+      }
+
       const result = await convertViaAI(
         env,
         "rendered.html",
         html,
         "text/html",
+        { hostname, cssSelector: input.cssSelector },
       );
       if (!result.ok) return result;
 

@@ -44,6 +44,7 @@ export async function fetchMarkdown(
       `${hostname}.html`,
       htmlBytes,
       "text/html",
+      { hostname, cssSelector: input.cssSelector },
     );
     if (!result.ok) return result;
 

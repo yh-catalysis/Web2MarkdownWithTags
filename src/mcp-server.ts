@@ -26,6 +26,7 @@ export function createMcpServer(env: Env): McpServer {
     {
       url: z.string().url().describe("The URL of the web page to convert to Markdown"),
       headers: z.record(z.string()).optional().describe("Optional custom HTTP headers for the fetch request (e.g. Cookie, Authorization)"),
+      cssSelector: z.string().optional().describe("CSS selector to extract only a specific element (e.g. 'article', '#content'). If omitted, the full page is converted."),
       maxLength: z.number().int().min(0).optional().describe("Maximum character length of returned Markdown. 0 or omitted means no limit."),
     },
     async (input) => toMcpResult(await fetchMarkdown(env, input)),
@@ -37,6 +38,7 @@ export function createMcpServer(env: Env): McpServer {
     {
       url: z.string().url().describe("The URL of the web page to render and convert to Markdown"),
       waitForSelector: z.string().optional().describe("CSS selector to wait for before extracting content (e.g. '#main-content')"),
+      cssSelector: z.string().optional().describe("CSS selector to extract only a specific element (e.g. 'article', '#content'). If omitted, the full page is converted."),
       maxLength: z.number().int().min(0).optional().describe("Maximum character length of returned Markdown. 0 or omitted means no limit."),
     },
     async (input) => toMcpResult(await renderMarkdown(env, input)),

@@ -5,12 +5,14 @@ export type ServiceResult =
 export interface FetchMarkdownInput {
   url: string;
   headers?: Record<string, string>;
+  cssSelector?: string;
   maxLength?: number;
 }
 
 export interface RenderMarkdownInput {
   url: string;
   waitForSelector?: string;
+  cssSelector?: string;
   maxLength?: number;
 }
 

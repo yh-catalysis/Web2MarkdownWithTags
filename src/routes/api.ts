@@ -25,12 +25,14 @@ function toHttpResponse(c: { json: (data: unknown, status?: number) => Response 
 const fetchSchema = z.object({
   url: z.string().url(),
   headers: z.record(z.string()).optional(),
+  cssSelector: z.string().optional(),
   maxLength: z.number().int().min(0).optional(),
 });
 
 const renderSchema = z.object({
   url: z.string().url(),
   waitForSelector: z.string().optional(),
+  cssSelector: z.string().optional(),
   maxLength: z.number().int().min(0).optional(),
 });
 

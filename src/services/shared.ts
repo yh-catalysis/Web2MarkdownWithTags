@@ -11,14 +11,26 @@ export async function enrichWithTags(
   return { ...result, markdown: enriched, originalLength: enriched.length };
 }
 
+export interface ConversionOptions {
+  hostname?: string;
+  cssSelector?: string;
+}
+
 export async function convertViaAI(
   env: Env,
   fileName: string,
   data: ArrayBuffer | string,
   mimeType: string,
+  options?: ConversionOptions,
 ): Promise<ServiceResult> {
   const blob = new Blob([data], { type: mimeType });
-  const results = await env.AI.toMarkdown([{ name: fileName, blob }]);
+  const conversionOptions: Record<string, unknown> = {};
+  if (options?.hostname !== undefined) conversionOptions.hostname = options.hostname;
+  if (options?.cssSelector !== undefined) conversionOptions.cssSelector = options.cssSelector;
+  const results = await env.AI.toMarkdown(
+    [{ name: fileName, blob }],
+    Object.keys(conversionOptions).length > 0 ? conversionOptions : undefined,
+  );
 
   if (results.length === 0) {
     return { ok: false, error: "Cloudflare toMarkdown returned no results" };

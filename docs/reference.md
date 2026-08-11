@@ -16,6 +16,7 @@ Fetch a static web page and convert its HTML to Markdown using Workers AI `toMar
 | --- | --- | --- | --- |
 | `url` | string | Yes | URL to convert |
 | `headers` | `Record<string, string>` | No | Custom HTTP headers to include in the request |
+| `cssSelector` | string | No | CSS selector to extract a specific element (e.g. `article`, `#content`). If omitted, the full page is converted. |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
 
 #### `render_markdown`
@@ -26,6 +27,7 @@ Convert a JavaScript-rendered page (SPA, etc.) to Markdown. Launches a headless 
 | --- | --- | --- | --- |
 | `url` | string | Yes | URL to convert |
 | `waitForSelector` | string | No | CSS selector to wait for before capturing |
+| `cssSelector` | string | No | CSS selector to extract a specific element (e.g. `article`, `#content`). If omitted, the full page is converted. |
 | `maxLength` | number | No | Maximum character length of returned Markdown |
 
 > Browser Rendering limits: Free 6 req/min, 10 min/day / Paid 180 req/min, 10 hrs/month
@@ -113,6 +115,7 @@ npm run tail
 | --- | --- | --- | --- |
 | `url` | string | Yes | 変換対象の URL |
 | `headers` | `Record<string, string>` | No | HTTP リクエストに付与するカスタムヘッダー |
+| `cssSelector` | string | No | 抽出対象要素を絞る CSS セレクタ (例: `article`, `#content`)。省略時はページ全体を変換する。 |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
 
 #### `render_markdown`
@@ -123,6 +126,7 @@ JavaScript で動的にレンダリングされるページ (SPA 等) を Markdo
 | --- | --- | --- | --- |
 | `url` | string | Yes | 変換対象の URL |
 | `waitForSelector` | string | No | レンダリング完了を待つ CSS セレクタ |
+| `cssSelector` | string | No | 抽出対象要素を絞る CSS セレクタ (例: `article`, `#content`)。省略時はページ全体を変換する。 |
 | `maxLength` | number | No | 返却する Markdown の最大文字数 |
 
 > Browser Rendering の制限: Free 6 req/min, 10 min/day / Paid 180 req/min, 10 hrs/month
