@@ -41,7 +41,7 @@ A Cloudflare Worker that converts web pages and documents to Markdown, using [Wo
 
 ##### Option A: Deploy button
 
-Click the **Deploy to Cloudflare** button at the top of this README. On the deploy screen, set `AUTH_TOKEN` to a random string of 32+ characters (e.g. generate one with `openssl rand -hex 32`). Leave `ALLOW_IMAGE_CONVERSION` as `false` unless you want to allow paid image conversion.
+Click the **Deploy to Cloudflare** button at the top of this README. On the deploy screen, set `AUTH_TOKEN` to a random string of 32+ characters (e.g. generate one with `openssl rand -hex 32`); you will set the same value in your MCP client in step 2. Leave `ALLOW_IMAGE_CONVERSION` as `false` unless you want to allow paid image conversion.
 
 ##### Option B: Wrangler CLI
 
@@ -51,7 +51,7 @@ npm run deploy                                # Deploy the Worker first
 npx wrangler secret put AUTH_TOKEN            # Then set the secret token
 ```
 
-Note the deployed URL (e.g. `https://web2markdown-worker.<subdomain>.workers.dev`).
+Either way, note the deployed URL (e.g. `https://web2markdown-with-tags.<subdomain>.workers.dev`).
 
 #### 2. Register with MCP Client
 
@@ -59,7 +59,7 @@ Via Claude Code CLI:
 
 ```bash
 claude mcp add --transport http web2markdown \
-  https://web2markdown-worker.<subdomain>.workers.dev/mcp \
+  https://web2markdown-with-tags.<subdomain>.workers.dev/mcp \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 
@@ -70,7 +70,7 @@ Or add to `.mcp.json`:
   "mcpServers": {
     "web2markdown": {
       "type": "http",
-      "url": "https://web2markdown-worker.<subdomain>.workers.dev/mcp",
+      "url": "https://web2markdown-with-tags.<subdomain>.workers.dev/mcp",
       "headers": {
         "Authorization": "Bearer <your AUTH_TOKEN>"
       }
@@ -94,7 +94,7 @@ For non-MCP clients, the same functionality is available as a REST API. All endp
 #### Request
 
 ```bash
-curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
+curl -X POST https://web2markdown-with-tags.<subdomain>.workers.dev/api/fetch \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com", "maxLength": 5000}'
@@ -156,7 +156,7 @@ Cloudflare Worker 上で動作し、Web ページやドキュメントを Markdo
 
 ##### 方法 A: Deploy ボタン
 
-README 冒頭の **Deploy to Cloudflare** ボタンを押す。デプロイ画面で `AUTH_TOKEN` に 32 文字以上のランダムな文字列を入れる (生成例: `openssl rand -hex 32`)。`ALLOW_IMAGE_CONVERSION` は有料の画像変換を許可する場合以外は `false` のままにする。
+README 冒頭の **Deploy to Cloudflare** ボタンを押す。デプロイ画面で `AUTH_TOKEN` に 32 文字以上のランダムな文字列を入れる (生成例: `openssl rand -hex 32`)。同じ値を手順 2 で MCP クライアントにも設定する。`ALLOW_IMAGE_CONVERSION` は有料の画像変換を許可する場合以外は `false` のままにする。
 
 ##### 方法 B: Wrangler CLI
 
@@ -166,7 +166,7 @@ npm run deploy                                # まず Worker をデプロイ
 npx wrangler secret put AUTH_TOKEN            # その後シークレットを設定
 ```
 
-デプロイ後に表示される URL (例: `https://web2markdown-worker.<subdomain>.workers.dev`) を控えておく。
+どちらの方法でも、デプロイ後に表示される URL (例: `https://web2markdown-with-tags.<subdomain>.workers.dev`) を控えておく。
 
 #### 2. MCP クライアントへの登録
 
@@ -174,7 +174,7 @@ Claude Code CLI で登録する:
 
 ```bash
 claude mcp add --transport http web2markdown \
-  https://web2markdown-worker.<subdomain>.workers.dev/mcp \
+  https://web2markdown-with-tags.<subdomain>.workers.dev/mcp \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 
@@ -185,7 +185,7 @@ claude mcp add --transport http web2markdown \
   "mcpServers": {
     "web2markdown": {
       "type": "http",
-      "url": "https://web2markdown-worker.<subdomain>.workers.dev/mcp",
+      "url": "https://web2markdown-with-tags.<subdomain>.workers.dev/mcp",
       "headers": {
         "Authorization": "Bearer <AUTH_TOKEN に設定したトークン>"
       }
@@ -209,7 +209,7 @@ MCP クライアント以外からも同じ機能を REST API として利用可
 #### リクエスト例
 
 ```bash
-curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
+curl -X POST https://web2markdown-with-tags.<subdomain>.workers.dev/api/fetch \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com", "maxLength": 5000}'

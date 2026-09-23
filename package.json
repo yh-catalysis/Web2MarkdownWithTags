@@ -28,7 +28,7 @@
     "cloudflare": {
         "bindings": {
             "AUTH_TOKEN": {
-                "description": "MCP / REST API の Bearer トークン。32文字以上のランダムな文字列を入れ、同じ値を Claude Desktop の web2markdown 拡張にも入力する。生成例: `openssl rand -hex 32`"
+                "description": "MCP / REST API の Bearer トークン。32文字以上のランダムな文字列を入れ、同じ値を MCP クライアント（Claude Desktop / Claude Code など）にも設定する。生成例: `openssl rand -hex 32`"
             },
             "ALLOW_IMAGE_CONVERSION": {
                 "description": "画像のMarkdown変換（Workers AI の Neurons を消費）を許可するなら `true`。既定は `false`。"
