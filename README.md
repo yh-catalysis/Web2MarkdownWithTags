@@ -2,6 +2,8 @@
 
 This is a fork of [maroon1st/Web2MarkDown](https://github.com/maroon1st/Web2MarkDown) with auto-tagging feature.
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/yh-catalysis/Web2MarkdownWithTags)
+
 [English](#english) | [日本語](#日本語)
 
 ---
@@ -36,6 +38,12 @@ A Cloudflare Worker that converts web pages and documents to Markdown, using [Wo
 ### Setup
 
 #### 1. Deploy the Worker
+
+##### Option A: Deploy button
+
+Click the **Deploy to Cloudflare** button at the top of this README. On the deploy screen, set `AUTH_TOKEN` to a random string of 32+ characters (e.g. generate one with `openssl rand -hex 32`). Leave `ALLOW_IMAGE_CONVERSION` as `false` unless you want to allow paid image conversion.
+
+##### Option B: Wrangler CLI
 
 ```bash
 npm install
@@ -119,12 +127,12 @@ Error (400 / 502 / 500):
 
 ### Environment Variables
 
-Set via `wrangler.toml` `[vars]` or `wrangler secret`.
+Set via `wrangler.toml` `[vars]` or `wrangler secret`. When deploying with the Deploy button, both can be set on the deploy screen.
 
 | Variable | How to set | Default | Description |
 | --- | --- | --- | --- |
-| `AUTH_TOKEN` | `wrangler secret put` | — | Secret for Bearer Token auth (used by both MCP and REST API) |
-| `ALLOW_IMAGE_CONVERSION` | `wrangler.toml` `[vars]` | `"false"` | Set `"true"` to enable image conversion (paid — consumes Workers AI Neurons) |
+| `AUTH_TOKEN` | Deploy screen / `wrangler secret put` | — | Secret for Bearer Token auth (used by both MCP and REST API) |
+| `ALLOW_IMAGE_CONVERSION` | Deploy screen / `wrangler.toml` `[vars]` | `"false"` | Set `"true"` to enable image conversion (paid — consumes Workers AI Neurons) |
 
 ---
 
@@ -145,6 +153,12 @@ Cloudflare Worker 上で動作し、Web ページやドキュメントを Markdo
 ### セットアップ
 
 #### 1. Worker のデプロイ
+
+##### 方法 A: Deploy ボタン
+
+README 冒頭の **Deploy to Cloudflare** ボタンを押す。デプロイ画面で `AUTH_TOKEN` に 32 文字以上のランダムな文字列を入れる (生成例: `openssl rand -hex 32`)。`ALLOW_IMAGE_CONVERSION` は有料の画像変換を許可する場合以外は `false` のままにする。
+
+##### 方法 B: Wrangler CLI
 
 ```bash
 npm install
@@ -228,12 +242,12 @@ curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
 
 ### 環境変数
 
-`wrangler.toml` の `[vars]` または `wrangler secret` で設定する。
+`wrangler.toml` の `[vars]` または `wrangler secret` で設定する。Deploy ボタンでデプロイする場合は、どちらもデプロイ画面で設定できる。
 
 | 変数名 | 設定方法 | デフォルト | 説明 |
 | --- | --- | --- | --- |
-| `AUTH_TOKEN` | `wrangler secret put` | — | Bearer Token 認証用のシークレット (MCP・REST API 共通) |
-| `ALLOW_IMAGE_CONVERSION` | `wrangler.toml` `[vars]` | `"false"` | `"true"` で画像変換（有料・Workers AI Neurons 消費）を許可 |
+| `AUTH_TOKEN` | デプロイ画面 / `wrangler secret put` | — | Bearer Token 認証用のシークレット (MCP・REST API 共通) |
+| `ALLOW_IMAGE_CONVERSION` | デプロイ画面 / `wrangler.toml` `[vars]` | `"false"` | `"true"` で画像変換（有料・Workers AI Neurons 消費）を許可 |
 
 ## License
 
