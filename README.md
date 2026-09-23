@@ -2,6 +2,8 @@
 
 This is a fork of [maroon1st/Web2MarkDown](https://github.com/maroon1st/Web2MarkDown) with auto-tagging feature.
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/yh-catalysis/Web2MarkdownWithTags)
+
 [English](#english) | [日本語](#日本語)
 
 ---
@@ -37,13 +39,19 @@ A Cloudflare Worker that converts web pages and documents to Markdown, using [Wo
 
 #### 1. Deploy the Worker
 
+##### Option A: Deploy button
+
+Click the **Deploy to Cloudflare** button at the top of this README. On the deploy screen, set `AUTH_TOKEN` to a random string of 32+ characters (e.g. generate one with `openssl rand -hex 32`); you will set the same value in your MCP client in step 2. Leave `ALLOW_IMAGE_CONVERSION` as `false` unless you want to allow paid image conversion.
+
+##### Option B: Wrangler CLI
+
 ```bash
 npm install
 npm run deploy                                # Deploy the Worker first
 npx wrangler secret put AUTH_TOKEN            # Then set the secret token
 ```
 
-Note the deployed URL (e.g. `https://web2markdown-worker.<subdomain>.workers.dev`).
+Either way, note the deployed URL (e.g. `https://web2markdown-with-tags.<subdomain>.workers.dev`).
 
 #### 2. Register with MCP Client
 
@@ -51,7 +59,7 @@ Via Claude Code CLI:
 
 ```bash
 claude mcp add --transport http web2markdown \
-  https://web2markdown-worker.<subdomain>.workers.dev/mcp \
+  https://web2markdown-with-tags.<subdomain>.workers.dev/mcp \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 
@@ -62,7 +70,7 @@ Or add to `.mcp.json`:
   "mcpServers": {
     "web2markdown": {
       "type": "http",
-      "url": "https://web2markdown-worker.<subdomain>.workers.dev/mcp",
+      "url": "https://web2markdown-with-tags.<subdomain>.workers.dev/mcp",
       "headers": {
         "Authorization": "Bearer <your AUTH_TOKEN>"
       }
@@ -86,7 +94,7 @@ For non-MCP clients, the same functionality is available as a REST API. All endp
 #### Request
 
 ```bash
-curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
+curl -X POST https://web2markdown-with-tags.<subdomain>.workers.dev/api/fetch \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com", "maxLength": 5000}'
@@ -119,12 +127,12 @@ Error (400 / 502 / 500):
 
 ### Environment Variables
 
-Set via `wrangler.toml` `[vars]` or `wrangler secret`.
+Set via `wrangler.toml` `[vars]` or `wrangler secret`. When deploying with the Deploy button, both can be set on the deploy screen.
 
 | Variable | How to set | Default | Description |
 | --- | --- | --- | --- |
-| `AUTH_TOKEN` | `wrangler secret put` | — | Secret for Bearer Token auth (used by both MCP and REST API) |
-| `ALLOW_IMAGE_CONVERSION` | `wrangler.toml` `[vars]` | `"false"` | Set `"true"` to enable image conversion (paid — consumes Workers AI Neurons) |
+| `AUTH_TOKEN` | Deploy screen / `wrangler secret put` | — | Secret for Bearer Token auth (used by both MCP and REST API) |
+| `ALLOW_IMAGE_CONVERSION` | Deploy screen / `wrangler.toml` `[vars]` | `"false"` | Set `"true"` to enable image conversion (paid — consumes Workers AI Neurons) |
 
 ---
 
@@ -146,13 +154,19 @@ Cloudflare Worker 上で動作し、Web ページやドキュメントを Markdo
 
 #### 1. Worker のデプロイ
 
+##### 方法 A: Deploy ボタン
+
+README 冒頭の **Deploy to Cloudflare** ボタンを押す。デプロイ画面で `AUTH_TOKEN` に 32 文字以上のランダムな文字列を入れる (生成例: `openssl rand -hex 32`)。同じ値を手順 2 で MCP クライアントにも設定する。`ALLOW_IMAGE_CONVERSION` は有料の画像変換を許可する場合以外は `false` のままにする。
+
+##### 方法 B: Wrangler CLI
+
 ```bash
 npm install
 npm run deploy                                # まず Worker をデプロイ
 npx wrangler secret put AUTH_TOKEN            # その後シークレットを設定
 ```
 
-デプロイ後に表示される URL (例: `https://web2markdown-worker.<subdomain>.workers.dev`) を控えておく。
+どちらの方法でも、デプロイ後に表示される URL (例: `https://web2markdown-with-tags.<subdomain>.workers.dev`) を控えておく。
 
 #### 2. MCP クライアントへの登録
 
@@ -160,7 +174,7 @@ Claude Code CLI で登録する:
 
 ```bash
 claude mcp add --transport http web2markdown \
-  https://web2markdown-worker.<subdomain>.workers.dev/mcp \
+  https://web2markdown-with-tags.<subdomain>.workers.dev/mcp \
   --header "Authorization: Bearer YOUR_AUTH_TOKEN"
 ```
 
@@ -171,7 +185,7 @@ claude mcp add --transport http web2markdown \
   "mcpServers": {
     "web2markdown": {
       "type": "http",
-      "url": "https://web2markdown-worker.<subdomain>.workers.dev/mcp",
+      "url": "https://web2markdown-with-tags.<subdomain>.workers.dev/mcp",
       "headers": {
         "Authorization": "Bearer <AUTH_TOKEN に設定したトークン>"
       }
@@ -195,7 +209,7 @@ MCP クライアント以外からも同じ機能を REST API として利用可
 #### リクエスト例
 
 ```bash
-curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
+curl -X POST https://web2markdown-with-tags.<subdomain>.workers.dev/api/fetch \
   -H "Authorization: Bearer YOUR_AUTH_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"url": "https://example.com", "maxLength": 5000}'
@@ -228,12 +242,12 @@ curl -X POST https://web2markdown-worker.<subdomain>.workers.dev/api/fetch \
 
 ### 環境変数
 
-`wrangler.toml` の `[vars]` または `wrangler secret` で設定する。
+`wrangler.toml` の `[vars]` または `wrangler secret` で設定する。Deploy ボタンでデプロイする場合は、どちらもデプロイ画面で設定できる。
 
 | 変数名 | 設定方法 | デフォルト | 説明 |
 | --- | --- | --- | --- |
-| `AUTH_TOKEN` | `wrangler secret put` | — | Bearer Token 認証用のシークレット (MCP・REST API 共通) |
-| `ALLOW_IMAGE_CONVERSION` | `wrangler.toml` `[vars]` | `"false"` | `"true"` で画像変換（有料・Workers AI Neurons 消費）を許可 |
+| `AUTH_TOKEN` | デプロイ画面 / `wrangler secret put` | — | Bearer Token 認証用のシークレット (MCP・REST API 共通) |
+| `ALLOW_IMAGE_CONVERSION` | デプロイ画面 / `wrangler.toml` `[vars]` | `"false"` | `"true"` で画像変換（有料・Workers AI Neurons 消費）を許可 |
 
 ## License
 

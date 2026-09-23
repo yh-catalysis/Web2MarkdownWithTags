@@ -1,0 +1,1 @@
+AUTH_TOKEN= # MCP クライアント（Claude Desktop / Claude Code など）に設定するのと同じ、32文字以上のランダムな文字列

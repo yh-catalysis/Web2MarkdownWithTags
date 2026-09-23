@@ -84,6 +84,7 @@ Formats supported by `convert_to_markdown`:
 ├── docs/
 │   └── reference.md             # This file
 ├── wrangler.toml                # Worker config (AI / Browser binding)
+├── .dev.vars.example            # Secret template (Deploy button / local dev)
 ├── package.json
 ├── LICENSE
 └── README.md
@@ -93,6 +94,7 @@ Formats supported by `convert_to_markdown`:
 
 ```bash
 # Local development
+cp .dev.vars.example .dev.vars   # Then set AUTH_TOKEN in .dev.vars
 npm run dev
 
 # Deploy
@@ -184,6 +186,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 ├── docs/
 │   └── reference.md             # 本ファイル
 ├── wrangler.toml                # Worker 設定 (AI / Browser binding)
+├── .dev.vars.example            # シークレットのひな形 (Deploy ボタン / ローカル開発)
 ├── package.json
 ├── LICENSE
 └── README.md
@@ -193,6 +196,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 
 ```bash
 # ローカル開発
+cp .dev.vars.example .dev.vars   # その後 .dev.vars の AUTH_TOKEN を設定する
 npm run dev
 
 # デプロイ

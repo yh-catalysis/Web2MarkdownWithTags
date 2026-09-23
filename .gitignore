@@ -9,3 +9,5 @@ build/
 CLAUDE.md
 .vscode/
 package-lock.json
+.dev.vars*
+!.dev.vars.example
