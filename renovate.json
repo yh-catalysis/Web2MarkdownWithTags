@@ -4,6 +4,7 @@
     "config:recommended",
     "helpers:pinGitHubActionDigests"
   ],
+  "forkProcessing": "enabled",
   "timezone": "Asia/Tokyo",
   "schedule": [
     "on saturday"

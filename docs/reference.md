@@ -108,6 +108,26 @@ npm run deploy
 npm run tail
 ```
 
+#### Previews
+
+When Workers Builds runs `npx wrangler preview` for a non-production branch or a pull request, the Preview gets only the bindings and secrets listed under `[previews]` in `wrangler.toml`. By default it has no `AUTH_TOKEN`, Workers AI or Browser Rendering, so `/mcp` and `/api/*` return 503 and only `/health` responds.
+
+To try the tools on Previews, add the bindings to `wrangler.toml` and set the secret shared by all Previews:
+
+```toml
+[previews.ai]
+binding = "AI"
+
+[previews.browser]
+binding = "BROWSER"
+```
+
+```bash
+npx wrangler preview base-config secret put AUTH_TOKEN
+```
+
+Previews then run the branch's code with these bindings, and their Workers AI and Browser Rendering usage is billed to your account.
+
 ---
 
 ## 日本語
@@ -213,3 +233,23 @@ npm run deploy
 # ログ確認
 npm run tail
 ```
+
+#### プレビュー
+
+Workers Builds が本番以外のブランチやプルリクエストで `npx wrangler preview` を実行すると、プレビューには `wrangler.toml` の `[previews]` に書いたバインディングとシークレットだけが渡る。既定では `AUTH_TOKEN`・Workers AI・Browser Rendering がないので、`/mcp` と `/api/*` は 503 を返し、応答するのは `/health` だけになる。
+
+プレビューでツールを試すには、`wrangler.toml` にバインディングを足し、全プレビュー共通のシークレットを設定する。
+
+```toml
+[previews.ai]
+binding = "AI"
+
+[previews.browser]
+binding = "BROWSER"
+```
+
+```bash
+npx wrangler preview base-config secret put AUTH_TOKEN
+```
+
+こうすると、プレビューはそのブランチのコードをこれらのバインディング付きで実行する。Workers AI と Browser Rendering の利用料は自分のアカウントに課金される。
