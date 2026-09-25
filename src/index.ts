@@ -28,7 +28,7 @@ app.use("/mcp", cors());
 app.use("/mcp", authTokenCheck);
 app.use(
   "/mcp",
-  bearerAuth({
+  bearerAuth<HonoEnv>({
     verifyToken: async (token, c) => timingSafeEqual(token, c.env.AUTH_TOKEN),
   }),
 );
@@ -46,7 +46,7 @@ app.use("/api/*", cors());
 app.use("/api/*", authTokenCheck);
 app.use(
   "/api/*",
-  bearerAuth({
+  bearerAuth<HonoEnv>({
     verifyToken: async (token, c) => timingSafeEqual(token, c.env.AUTH_TOKEN),
   }),
 );
