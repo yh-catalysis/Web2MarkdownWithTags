@@ -28,6 +28,10 @@
 - 依存の追加・バージョン変更は、Issue で明示的に指示された場合のみ行う。
 - `dependencies` はランタイム依存のみ。テスト用ライブラリは `devDependencies` に入れる。
 
+## ブランチ
+
+- `main` から切り、`<type>/<内容>` と名付ける。`<type>` はコミットと同じ Conventional Commits の種類（`feat` / `fix` / `docs` / `build` / `ci` / `chore` / `refactor` / `test`）、`<内容>` は英小文字のケバブケース（例: `fix/tag-generation-model`）。AI エージェントのツールが自動で付ける名前（`copilot/…`、`claude/…`）はそのままでよい。
+
 ## 取り扱い注意のファイル
 
 以下はセキュリティ・課金に直結する。変更する場合は、対応するテストも更新し、
