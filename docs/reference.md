@@ -61,7 +61,7 @@ Formats supported by `convert_to_markdown`:
 
 ### Auto-tagging
 
-Frontmatter `tags` are generated with the Workers AI model `@cf/zai-org/glm-4.7-flash`; if it is deprecated, change `TAG_MODEL` in `src/lib/constants.ts`.
+Frontmatter `tags` are generated with the Workers AI model `@cf/google/gemma-4-26b-a4b-it`; if it is deprecated, change `TAG_MODEL` in `src/lib/constants.ts`.
 
 ### Project Structure
 
@@ -167,7 +167,7 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 
 ### 自動タグ付け
 
-frontmatter の `tags` は Workers AI の `@cf/zai-org/glm-4.7-flash` で生成する。このモデルが提供終了になったら `src/lib/constants.ts` の `TAG_MODEL` を替える。
+frontmatter の `tags` は Workers AI の `@cf/google/gemma-4-26b-a4b-it` で生成する。このモデルが提供終了になったら `src/lib/constants.ts` の `TAG_MODEL` を替える。
 
 ### プロジェクト構成
 

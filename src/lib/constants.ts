@@ -10,7 +10,7 @@ export const USER_AGENT =
   "Web2MarkDown/1.0 (MCP Server; +https://github.com/web2markdown-mcp)";
 
 // Workers AI model for tag generation. Replace it when the model is deprecated.
-export const TAG_MODEL = "@cf/zai-org/glm-4.7-flash";
+export const TAG_MODEL = "@cf/google/gemma-4-26b-a4b-it";
 
 const MIME_TO_EXT: Record<string, string> = {
   "application/pdf": ".pdf",
