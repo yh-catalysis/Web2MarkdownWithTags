@@ -33,9 +33,6 @@ export async function convertViaAI(
   const blob = new Blob([data], { type: mimeType });
   const html = buildHtmlOptions(htmlOptions);
 
-  // `html` is assignable to ConversionOptions["html"]: the shipped
-  // @cloudflare/workers-types declares `hostname` but not yet `cssSelector`,
-  // and extra properties on a non-fresh value are allowed.
   const results = html
     ? await env.AI.toMarkdown([{ name: fileName, blob }], {
         conversionOptions: { html },

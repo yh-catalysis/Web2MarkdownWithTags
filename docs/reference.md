@@ -59,6 +59,10 @@ Formats supported by `convert_to_markdown`:
 
 > Image conversion uses Workers AI models (object detection + summarization), which consume Neurons. Enable/disable via the `ALLOW_IMAGE_CONVERSION` setting.
 
+### Auto-tagging
+
+Frontmatter `tags` are generated with the Workers AI model `@cf/google/gemma-4-26b-a4b-it`; if it is deprecated, change `TAG_MODEL` in `src/lib/constants.ts`.
+
 ### Project Structure
 
 ```text
@@ -160,6 +164,10 @@ PDF・画像・Office 文書などを Markdown に変換する。ファイルを
 | 画像 | `.jpeg`, `.jpg`, `.png`, `.webp`, `.svg` | **有料** (Workers AI Neurons 消費) |
 
 > 画像変換は Workers AI のモデル（物体検出 + 要約）を使用するため Neurons を消費する。Worker の `ALLOW_IMAGE_CONVERSION` 設定で有効/無効を切り替え可能。
+
+### 自動タグ付け
+
+frontmatter の `tags` は Workers AI の `@cf/google/gemma-4-26b-a4b-it` で生成する。このモデルが提供終了になったら `src/lib/constants.ts` の `TAG_MODEL` を替える。
 
 ### プロジェクト構成
 

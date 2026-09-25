@@ -36,7 +36,9 @@ app.use(
 app.all("/mcp", async (c) => {
   const server = createMcpServer(c.env);
   const handler = createMcpHandler(server);
-  return handler(c.req.raw, c.env, c.executionCtx);
+  // Hono's ExecutionContext type lacks `tracing`, which newer
+  // @cloudflare/workers-types require; the runtime object is the real one.
+  return handler(c.req.raw, c.env, c.executionCtx as ExecutionContext);
 });
 
 // --- REST API ---
