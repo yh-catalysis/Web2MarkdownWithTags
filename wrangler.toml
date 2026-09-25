@@ -13,3 +13,9 @@ binding = "AI"
 
 [browser]
 binding = "BROWSER"
+
+# Previews (`wrangler preview`) get only the bindings and secrets listed here.
+# None of AUTH_TOKEN, AI or BROWSER is given, so /mcp and /api/* return 503 and
+# only /health responds. See docs/reference.md to enable them.
+[previews.vars]
+ALLOW_IMAGE_CONVERSION = "false"
