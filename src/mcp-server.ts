@@ -25,7 +25,7 @@ export function createMcpServer(env: Env): McpServer {
     "Fetch a web page and convert its HTML to Markdown using Cloudflare Workers AI. Best for static pages. Does not execute JavaScript \u2014 use render_markdown for SPAs.",
     {
       url: z.string().url().describe("The URL of the web page to convert to Markdown"),
-      headers: z.record(z.string()).optional().describe("Optional custom HTTP headers for the fetch request (e.g. Cookie, Authorization)"),
+      headers: z.record(z.string(), z.string()).optional().describe("Optional custom HTTP headers for the fetch request (e.g. Cookie, Authorization)"),
       maxLength: z.number().int().min(0).optional().describe("Maximum character length of returned Markdown. 0 or omitted means no limit."),
       cssSelector: z.string().optional().describe("CSS selector to extract only the main content (e.g. 'article'). When omitted, only header/footer/head are stripped."),
     },

@@ -24,7 +24,7 @@ function toHttpResponse(c: { json: (data: unknown, status?: number) => Response 
 
 const fetchSchema = z.object({
   url: z.string().url(),
-  headers: z.record(z.string()).optional(),
+  headers: z.record(z.string(), z.string()).optional(),
   maxLength: z.number().int().min(0).optional(),
   cssSelector: z.string().optional(),
 });
