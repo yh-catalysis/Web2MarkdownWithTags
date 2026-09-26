@@ -2,7 +2,7 @@
     "name": "web2markdown-with-tags",
     "version": "1.0.0",
     "private": true,
-    "packageManager": "pnpm@11.21.0",
+    "packageManager": "pnpm@12.6.0",
     "scripts": {
         "dev": "wrangler dev",
         "deploy": "wrangler deploy",
@@ -13,8 +13,8 @@
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^5.20260924.1",
-        "typescript": "^5.5.4",
-        "vitest": "^4.1.11",
+        "typescript": "^7.0.0",
+        "vitest": "^5.0.0",
         "wrangler": "^4.138.0"
     },
     "dependencies": {
@@ -23,7 +23,7 @@
         "@modelcontextprotocol/sdk": "1.26.0",
         "agents": "^0.5.1",
         "hono": "^4.13.9",
-        "zod": "^3.25.0"
+        "zod": "^4.0.0"
     },
     "cloudflare": {
         "bindings": {
