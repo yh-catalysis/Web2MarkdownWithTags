@@ -174,7 +174,7 @@ importers:
         version: 4.1.1
       '@cloudflare/puppeteer':
         specifier: ^1.0.0
-        version: 1.0.6(supports-color@10.2.2)
+        version: 1.4.0(supports-color@10.2.2)
       '@modelcontextprotocol/sdk':
         specifier: 1.26.0
         version: 1.26.0(@cfworker/json-schema@4.1.1)(supports-color@10.2.2)(zod@3.25.76)
@@ -238,8 +238,8 @@ packages:
     resolution: {integrity: sha512-jxQYkj8dSIzc0cD6cMMNdOc1UVjqSqu8BZdor5s8cGjW2I8BjODt/kWPVdY+u9zj3ms75Q5qaZgnxUad83+eAg==}
     engines: {node: '>=22.0.0'}
 
-  '@cloudflare/puppeteer@1.0.6':
-    resolution: {integrity: sha512-e/0s9Ac2IhyBrgnyTDrYEippqrXqKtllP8qezyunOb6icOJ2FzbfQwhWRIVwV3AgZtutQTF5Kb/gFAGXCuGRqQ==}
+  '@cloudflare/puppeteer@1.4.0':
+    resolution: {integrity: sha512-39lo96Y7ErOJFmu/KIJU1VLaOibhynx/BauKCZOW5+RVH/mG0jZrAEGJlqCdx5ZxLHyWppm78YX3jLNPCBB+fA==}
     engines: {node: '>=18'}
 
   '@cloudflare/unenv-preset@2.16.2':
@@ -1859,7 +1859,7 @@ snapshots:
 
   '@cloudflare/kv-asset-handler@0.5.0': {}
 
-  '@cloudflare/puppeteer@1.0.6(supports-color@10.2.2)':
+  '@cloudflare/puppeteer@1.4.0(supports-color@10.2.2)':
     dependencies:
       debug: 4.4.3(supports-color@10.2.2)
       devtools-protocol: 0.0.1299070
