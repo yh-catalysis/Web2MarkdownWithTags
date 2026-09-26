@@ -20,10 +20,10 @@
     "dependencies": {
         "@cfworker/json-schema": "^4.1.1",
         "@cloudflare/puppeteer": "^1.0.0",
-        "@modelcontextprotocol/sdk": "1.26.0",
-        "agents": "^0.5.1",
+        "@modelcontextprotocol/sdk": "1.30.0",
+        "agents": "^0.24.0",
         "hono": "^4.13.9",
-        "zod": "^3.25.0"
+        "zod": "^4.0.0"
     },
     "cloudflare": {
         "bindings": {
