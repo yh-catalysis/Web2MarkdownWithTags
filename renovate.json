@@ -1,14 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "JSON にはコメントを書けないので、設定の意図はこの description と各 packageRules の description に書く。Renovate の動作には影響しない。",
+    "config:best-practices は npm の新しい版を公開から3日たつまで提案しない（security:minimumReleaseAgeNpm）。pnpm 11 は既定で公開から1日（1440分）未満の版を含むロックファイルを pnpm install --frozen-lockfile で拒否するので、この待ち時間を外すと CI と Workers Builds が落ちる。",
+    "脆弱性の修正（vulnerabilityAlerts）は、Renovate の既定では公開直後でも PR を出す。だが pnpm が1日未満の版を拒否するので、出しても CI が落ちてデプロイできない。そのため1日だけ待たせる。",
+    "packageRules は一致したルールを定義順に適用し、同じ項目は後のルールが上書きする。並べ替えると挙動が変わる。"
+  ],
   "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigests"
+    "config:best-practices"
   ],
   "forkProcessing": "enabled",
   "timezone": "Asia/Tokyo",
   "schedule": [
     "on saturday"
   ],
+  "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": [
@@ -16,34 +22,37 @@
     ],
     "schedule": [
       "at any time"
-    ]
+    ],
+    "minimumReleaseAge": "1 day"
   },
   "packageRules": [
     {
-      "groupName": "github-actions",
+      "description": "【グループ】GitHub Actions をまとめて1本にする（major は別の1本になる）",
       "matchManagers": [
         "github-actions"
-      ]
-    },
-    {
-      "groupName": "python dependencies",
-      "matchManagers": [
-        "pep621",
-        "uv"
       ],
-      "rangeStrategy": "widen"
+      "groupName": "github-actions"
     },
     {
-      "groupName": "node dependencies",
+      "description": "【グループ】npm の minor / patch をまとめて1本にする。major はまとめると落ちたときに原因を切り分けられないので、パッケージごとに1本ずつ出す。更新種別を絞っているので、ロックファイル保守と版の固定（pin）はこのグループに入らない",
       "matchManagers": [
         "npm"
-      ]
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "node dependencies"
     },
     {
-      "groupName": ".net dependencies",
-      "matchManagers": [
-        "nuget"
-      ]
+      "description": "【グループ】agents は @modelcontextprotocol/sdk と zod の版を指定している（0.24.0 は peerDependencies で sdk 1.30.0 と zod ^4.0.0）。版がずれると型が合わずに lint が落ちるか（2949459）、peer が満たされないまま動く。3つを major も含めて1本の PR で上げる。前のルールの groupName を上書きするので、この位置に置く",
+      "matchPackageNames": [
+        "agents",
+        "@modelcontextprotocol/sdk",
+        "zod"
+      ],
+      "groupName": "agents and MCP SDK",
+      "separateMajorMinor": false
     }
   ]
 }
