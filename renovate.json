@@ -2,8 +2,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": [
     "JSON にはコメントを書けないので、設定の意図はこの description と各 packageRules の description に書く。Renovate の動作には影響しない。",
-    "config:best-practices は npm の新しい版を公開から3日たつまで提案しない（security:minimumReleaseAgeNpm）。pnpm 11 は既定で公開から1日（1440分）未満の版を含むロックファイルを pnpm install --frozen-lockfile で拒否するので、この待ち時間を外すと CI と Workers Builds が落ちる。",
+    "config:best-practices は npm の新しい版を公開から3日たつまで提案しない（security:minimumReleaseAgeNpm）。pnpm 11 以降は既定で公開から1日（1440分）未満の版を含むロックファイルを pnpm install --frozen-lockfile で拒否するので、この待ち時間を外すと CI と Workers Builds が落ちる。",
     "脆弱性の修正（vulnerabilityAlerts）は、Renovate の既定では公開直後でも PR を出す。だが pnpm が1日未満の版を拒否するので、出しても CI が落ちてデプロイできない。そのため1日だけ待たせる。",
+    "自動マージは、本番の Worker に入らず、壊れたら CI が必ず気づける更新だけに付ける。platformAutomerge は false にする。GitHub 標準の auto-merge は「必須」に指定したチェックしか待たないので、lint・テスト・CodeQL・Workers Builds のプレビューのすべてが通ったことを Renovate 自身に確かめさせる。",
     "packageRules は一致したルールを定義順に適用し、同じ項目は後のルールが上書きする。並べ替えると挙動が変わる。"
   ],
   "extends": [
@@ -53,6 +54,36 @@
       ],
       "groupName": "agents and MCP SDK",
       "separateMajorMinor": false
+    },
+    {
+      "description": "【グループ】【自動マージ】wrangler を除く devDependencies の minor / patch を1本にまとめ、CI がすべて通れば Renovate がマージする。typescript・vitest・@cloudflare/workers-types は型チェックとテストにしか使わず、本番の Worker には入らない。wrangler は本番のバンドルを作るので除く。major は、テストが黙って走らなくなるような変わり方を CI では見抜けないので除く。node dependencies の groupName を上書きするので、その後ろに置く",
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchPackageNames": [
+        "!wrangler"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "dev tools",
+      "automerge": true,
+      "platformAutomerge": false
+    },
+    {
+      "description": "【自動マージ】GitHub Actions の minor / patch / ダイジェストの更新は、CI がすべて通れば Renovate がマージする。Actions は CI の中でしか動かず、本番の Worker には入らない。major は除く",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pinDigest"
+      ],
+      "automerge": true,
+      "platformAutomerge": false
     }
   ]
 }
