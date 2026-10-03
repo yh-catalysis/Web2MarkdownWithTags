@@ -2,7 +2,7 @@
     "name": "web2markdown-with-tags",
     "version": "1.0.0",
     "private": true,
-    "packageManager": "pnpm@12.6.0",
+    "packageManager": "pnpm@12.8.1",
     "scripts": {
         "dev": "wrangler dev",
         "deploy": "wrangler deploy",
@@ -15,7 +15,7 @@
         "@cloudflare/workers-types": "5.20260929.1",
         "typescript": "7.0.2",
         "vitest": "5.0.2",
-        "wrangler": "4.138.0"
+        "wrangler": "4.144.0"
     },
     "dependencies": {
         "@cfworker/json-schema": "^4.1.1",
