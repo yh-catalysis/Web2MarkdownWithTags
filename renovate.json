@@ -4,6 +4,7 @@
     "JSON にはコメントを書けないので、設定の意図はこの description と各 packageRules の description に書く。Renovate の動作には影響しない。",
     "config:best-practices は npm の新しい版を公開から3日たつまで提案しない（security:minimumReleaseAgeNpm）。pnpm 11 以降は既定で公開から1日（1440分）未満の版を含むロックファイルを pnpm install --frozen-lockfile で拒否するので、この待ち時間を外すと CI と Workers Builds が落ちる。",
     "脆弱性の修正（vulnerabilityAlerts）は、Renovate の既定では公開直後でも PR を出す。だが pnpm が1日未満の版を拒否するので、出しても CI が落ちてデプロイできない。そのため1日だけ待たせる。",
+    "schedule だけでは、開いている PR の作り直しは止まらない。updateNotScheduled の既定は true なので、土曜以外も新しい版が出るたびに既存の PR が作り直され、CI・CodeQL・Workers Builds のプレビューが走り直す。updateNotScheduled を false にして、作り直しも土曜だけにする。そのため土曜以外は自動マージも起きない。on saturday は土曜の終日なので、PR の作り直しから CI を経て自動マージまでを土曜のうちに済ませられる。Dependency Dashboard や PR のチェックボックスで頼んだ rebase は、土曜以外でも動く。脆弱性の修正は vulnerabilityAlerts の schedule が at any time なので、この制限を受けない。",
     "自動マージは、本番の Worker に入らず、壊れたら CI が必ず気づける更新だけに付ける。platformAutomerge は false にする。GitHub 標準の auto-merge は「必須」に指定したチェックしか待たないので、lint・テスト・CodeQL・Workers Builds のプレビューのすべてが通ったことを Renovate 自身に確かめさせる。",
     "packageRules は一致したルールを定義順に適用し、同じ項目は後のルールが上書きする。並べ替えると挙動が変わる。"
   ],
@@ -15,6 +16,7 @@
   "schedule": [
     "on saturday"
   ],
+  "updateNotScheduled": false,
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
