@@ -48,10 +48,11 @@
       "groupName": "node dependencies"
     },
     {
-      "description": "【グループ】agents は @modelcontextprotocol/sdk と zod の版を指定している（0.24.0 は peerDependencies で sdk 1.30.0 と zod ^4.0.0）。版がずれると型が合わずに lint が落ちるか（2949459）、peer が満たされないまま動く。3つを major も含めて1本の PR で上げる。前のルールの groupName を上書きするので、この位置に置く",
+      "description": "【グループ】agents は @modelcontextprotocol/sdk・@modelcontextprotocol/server・zod の版を指定している（0.31.0 は peerDependencies で sdk 1.32.1、server 2.3.1、zod ^4.0.0）。sdk と server は任意の peer なので、package.json に宣言しないと wrangler のバンドルが落ちる。版がずれると型が合わずに lint が落ちるか（2949459）、peer が満たされないまま動く。4つを major も含めて1本の PR で上げる。前のルールの groupName を上書きするので、この位置に置く",
       "matchPackageNames": [
         "agents",
         "@modelcontextprotocol/sdk",
+        "@modelcontextprotocol/server",
         "zod"
       ],
       "groupName": "agents and MCP SDK",
